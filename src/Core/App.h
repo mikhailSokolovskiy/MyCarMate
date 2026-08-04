@@ -6,6 +6,7 @@ class App
 {
 public:
     void Setup();
+    void Load();
     void Update();
 
 private:

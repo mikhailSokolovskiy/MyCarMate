@@ -15,6 +15,8 @@ void Display::Init()
     m_lgfx.setTextColor(TFT_GREEN);
     m_lgfx.setTextSize(2);
     m_lgfx.drawString("Hello im frend!", 20, 20);
+
+    m_spriteManager.Init();
 }
 
 void Display::Update()

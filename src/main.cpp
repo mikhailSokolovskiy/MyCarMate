@@ -9,6 +9,7 @@ void setup()
     Serial.begin(115200);
     delay(6000);
     app.Setup();
+    app.Load();
 }
 
 void loop()

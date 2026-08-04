@@ -9,6 +9,11 @@ void App::Setup()
     m_display.Init();
 }
 
+void App::Load()
+{
+    m_display.Load();
+}
+
 void App::Update()
 {
     m_display.Update();
