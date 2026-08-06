@@ -8,6 +8,7 @@ struct EmotionSprites
 {
     Emotion emotion;
     std::vector<Sprite> sprites;
+    Sprite* GetFrame(size_t frame);
 };
 
 class SpriteManager
@@ -19,6 +20,8 @@ public:
     void LoadSprites();
 
     void UnloadSprites();
+
+    const Sprite* Get(Emotion emotion, size_t frame);
 
 private:
     std::vector<EmotionSprites> m_emotions;
