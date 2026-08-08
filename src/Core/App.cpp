@@ -17,11 +17,5 @@ void App::Load()
 void App::Update()
 {
     m_display.Update();
-
-    if (millis() - m_lastUpdate >= 1000)
-    {
-        m_lastUpdate = millis();
-
-        Serial.println("Update");
-    }
+    m_display.ShowSprite(Emotion::Happy, 0);
 }

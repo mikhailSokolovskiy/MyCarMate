@@ -11,6 +11,4 @@ public:
 
 private:
     Display m_display;
-
-    unsigned long m_lastUpdate = 0;
 };

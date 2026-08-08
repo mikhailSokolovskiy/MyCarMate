@@ -1,5 +1,7 @@
 #include "SpriteManager.h"
 
+#include <Assets/Sprites/Happy/Happy_0.h>
+
 void SpriteManager::Init()
 {
 }
@@ -10,6 +12,14 @@ void SpriteManager::LoadSprites()
 
     EmotionSprites happy;
     happy.emotion = Emotion::Happy;
+
+    Sprite happyFrame(
+        8,
+        8,
+        Happy_0
+    );
+
+    happy.sprites.push_back(happyFrame);
 
     m_emotions.push_back(happy);
 }
