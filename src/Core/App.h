@@ -11,4 +11,7 @@ public:
 
 private:
     Display m_display;
+
+    size_t m_frame = 0;
+    unsigned long m_lastFrameTime = 0;
 };

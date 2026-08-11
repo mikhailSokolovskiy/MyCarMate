@@ -2,6 +2,7 @@
 
 #include "Display.h"
 #include <Constants/DisplayConfig.h>
+#include <Constants/SpriteConfig.h>
 
 void Display::Init()
 {
@@ -31,6 +32,8 @@ void Display::ShowSprite(Emotion emotion, size_t frame)
         return;
     }
 
+    m_lgfx.fillScreen(TFT_BLACK);
+
     DrawBitmap(
         sprite->GetPixels(),
         sprite->GetWidth(),
@@ -42,8 +45,17 @@ void Display::DrawBitmap(
     uint16_t width,
     uint16_t height)
 {
-    const uint16_t x = (DisplayConstants::Width - width) / 2;
-    const uint16_t y = (DisplayConstants::Height - height) / 2;
+    const uint16_t scaledWidth =
+        width * SpriteConstants::Scale;
+
+    const uint16_t scaledHeight =
+        height * SpriteConstants::Scale;
+
+    const uint16_t x =
+        (DisplayConstants::Width - scaledWidth) / 2;
+
+    const uint16_t y =
+        (DisplayConstants::Height - scaledHeight) / 2;
 
     for (uint16_t py = 0; py < height; py++)
     {
@@ -53,7 +65,12 @@ void Display::DrawBitmap(
         {
             if (row & (1 << (7 - px)))
             {
-                m_lgfx.drawPixel(x + px, y + py, TFT_RED);
+                m_lgfx.fillRect(
+                    x + px * SpriteConstants::Scale,
+                    y + py * SpriteConstants::Scale,
+                    SpriteConstants::Scale,
+                    SpriteConstants::Scale,
+                    TFT_RED);
             }
         }
     }
