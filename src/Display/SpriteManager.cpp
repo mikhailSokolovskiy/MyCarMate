@@ -1,7 +1,7 @@
 #include "SpriteManager.h"
 
-#include <Assets/Sprites/Happy/Happy_0.h>
 #include <Constants/SpriteConfig.h>
+#include <Assets/Sprites/Happy/Happy.h>
 
 void SpriteManager::Init()
 {
@@ -55,10 +55,13 @@ void SpriteManager::LoadHappy()
     EmotionSprites happy;
     happy.emotion = Emotion::Happy;
 
-    happy.sprites.emplace_back(
-        SpriteConstants::Width,
-        SpriteConstants::Height,
-        Happy_0);
+    for (size_t i = 0; i < HappyFrameCount; i++)
+    {
+        happy.sprites.emplace_back(
+            SpriteConstants::Width,
+            SpriteConstants::Height,
+            HappyFrames[i]);
+    }
 
     m_emotions.push_back(happy);
 }
