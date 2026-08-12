@@ -18,18 +18,5 @@ void App::Update()
 {
     m_display.Update();
 
-    if (millis() - m_lastFrameTime >= 300)
-    {
-        m_lastFrameTime = millis();
-
-        m_display.ShowSprite(Emotion::Happy, m_frame);
-
-        m_frame++;
-
-        if (m_frame >= 4)
-        {
-            m_frame = 0;
-            delay(800);
-        }
-    }
+    m_display.ShowSprite(Emotion::Happy, 4);
 }

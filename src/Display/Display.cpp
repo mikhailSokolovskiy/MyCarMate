@@ -37,19 +37,20 @@ void Display::ShowSprite(Emotion emotion, size_t frame)
     DrawBitmap(
         sprite->GetPixels(),
         sprite->GetWidth(),
-        sprite->GetHeight());
+        sprite->GetHeight(), TFT_RED);
 }
 
 void Display::DrawBitmap(
     const uint8_t *data,
     uint16_t width,
-    uint16_t height)
+    uint16_t height,
+    uint16_t color)
 {
     const uint16_t scaledWidth =
-        width * SpriteConstants::Scale;
+        width * DisplayConstants::SpriteScale;
 
     const uint16_t scaledHeight =
-        height * SpriteConstants::Scale;
+        height * DisplayConstants::SpriteScale;
 
     const uint16_t x =
         (DisplayConstants::Width - scaledWidth) / 2;
@@ -57,20 +58,26 @@ void Display::DrawBitmap(
     const uint16_t y =
         (DisplayConstants::Height - scaledHeight) / 2;
 
+    const uint16_t bytesPerRow = width / 8;
+
     for (uint16_t py = 0; py < height; py++)
     {
-        uint8_t row = data[py];
-
         for (uint16_t px = 0; px < width; px++)
         {
-            if (row & (1 << (7 - px)))
+            const uint16_t byteIndex =
+                py * bytesPerRow + px / 8;
+
+            const uint8_t bit =
+                7 - (px % 8);
+
+            if (data[byteIndex] & (1 << bit))
             {
                 m_lgfx.fillRect(
-                    x + px * SpriteConstants::Scale,
-                    y + py * SpriteConstants::Scale,
-                    SpriteConstants::Scale,
-                    SpriteConstants::Scale,
-                    TFT_RED);
+                    x + px * DisplayConstants::SpriteScale,
+                    y + py * DisplayConstants::SpriteScale,
+                    DisplayConstants::SpriteScale,
+                    DisplayConstants::SpriteScale,
+                    color);
             }
         }
     }
