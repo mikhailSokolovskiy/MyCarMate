@@ -9,6 +9,12 @@ void Display::Init()
     m_lgfx.init();
     m_lgfx.fillScreen(TFT_BLACK);
 
+    m_renderSprite.setColorDepth(16);
+
+    m_renderSprite.createSprite(
+        SpriteConstants::Width * DisplayConstants::SpriteScale,
+        SpriteConstants::Height * DisplayConstants::SpriteScale);
+
     Serial.println("Display initialized");
 
     m_spriteManager.Init();
@@ -25,19 +31,35 @@ void Display::Load()
 
 void Display::ShowSprite(Emotion emotion, size_t frame)
 {
-    const Sprite *sprite = m_spriteManager.Get(emotion, frame);
+    const Sprite *sprite =
+        m_spriteManager.Get(emotion, frame);
 
     if (sprite == nullptr)
     {
         return;
     }
 
-    m_lgfx.fillScreen(TFT_BLACK);
+    const uint16_t scaledWidth =
+        sprite->GetWidth() * DisplayConstants::SpriteScale;
+
+    const uint16_t scaledHeight =
+        sprite->GetHeight() * DisplayConstants::SpriteScale;
+
+    const uint16_t x =
+        (DisplayConstants::Width - scaledWidth) / 2;
+
+    const uint16_t y =
+        (DisplayConstants::Height - scaledHeight) / 2;
+
+    m_renderSprite.fillSprite(TFT_BLACK);
 
     DrawBitmap(
         sprite->GetPixels(),
         sprite->GetWidth(),
-        sprite->GetHeight(), TFT_RED);
+        sprite->GetHeight(),
+        TFT_ORANGE);
+
+    m_renderSprite.pushSprite(x, y);
 }
 
 void Display::DrawBitmap(
@@ -46,19 +68,11 @@ void Display::DrawBitmap(
     uint16_t height,
     uint16_t color)
 {
-    const uint16_t scaledWidth =
-        width * DisplayConstants::SpriteScale;
+    const uint16_t scale =
+        DisplayConstants::SpriteScale;
 
-    const uint16_t scaledHeight =
-        height * DisplayConstants::SpriteScale;
-
-    const uint16_t x =
-        (DisplayConstants::Width - scaledWidth) / 2;
-
-    const uint16_t y =
-        (DisplayConstants::Height - scaledHeight) / 2;
-
-    const uint16_t bytesPerRow = width / 8;
+    const uint16_t bytesPerRow =
+        width / 8;
 
     for (uint16_t py = 0; py < height; py++)
     {
@@ -72,11 +86,11 @@ void Display::DrawBitmap(
 
             if (data[byteIndex] & (1 << bit))
             {
-                m_lgfx.fillRect(
-                    x + px * DisplayConstants::SpriteScale,
-                    y + py * DisplayConstants::SpriteScale,
-                    DisplayConstants::SpriteScale,
-                    DisplayConstants::SpriteScale,
+                m_renderSprite.fillRect(
+                    px * scale,
+                    py * scale,
+                    scale,
+                    scale,
                     color);
             }
         }

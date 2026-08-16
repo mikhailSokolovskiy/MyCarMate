@@ -2,6 +2,7 @@
 
 enum class Emotion
 {
+    Default,
     Happy,
     Angry,
     Sleep,

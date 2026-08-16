@@ -19,5 +19,7 @@ private:
         uint16_t color);
 
     LGFX m_lgfx;
+    LGFX_Sprite m_renderSprite{&m_lgfx};
+
     SpriteManager m_spriteManager;
 };
