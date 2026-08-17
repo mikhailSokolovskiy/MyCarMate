@@ -7,6 +7,9 @@ void Animation::SetFrameCount(size_t frameCount)
     m_currentFrame = 0;
     m_lastFrameTime = millis();
     m_finished = false;
+
+    // Новый кадр 0 нужно сразу показать.
+    m_frameChanged = true;
 }
 
 void Animation::SetFrameInterval(unsigned long interval)
@@ -16,6 +19,8 @@ void Animation::SetFrameInterval(unsigned long interval)
 
 void Animation::Update()
 {
+    m_frameChanged = false;
+
     if (m_frameCount == 0 || m_finished)
     {
         return;
@@ -33,6 +38,7 @@ void Animation::Update()
     if (m_currentFrame + 1 < m_frameCount)
     {
         m_currentFrame++;
+        m_frameChanged = true;
         return;
     }
 
@@ -47,4 +53,9 @@ size_t Animation::GetCurrentFrame() const
 bool Animation::IsFinished() const
 {
     return m_finished;
+}
+
+bool Animation::IsFrameChanged() const
+{
+    return m_frameChanged;
 }

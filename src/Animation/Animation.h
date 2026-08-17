@@ -11,6 +11,7 @@ public:
 
     size_t GetCurrentFrame() const;
     bool IsFinished() const;
+    bool IsFrameChanged() const;
 
 private:
     size_t m_frameCount = 0;
@@ -20,4 +21,5 @@ private:
     unsigned long m_lastFrameTime = 0;
 
     bool m_finished = false;
+    bool m_frameChanged = false;
 };

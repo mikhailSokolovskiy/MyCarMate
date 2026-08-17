@@ -11,6 +11,8 @@ public:
     void Update();
     void ShowSprite(Emotion emotion, size_t frame);
 
+    void SetSpriteManager(SpriteManager *spriteManager);
+
 private:
     void DrawBitmap(
         const uint8_t *data,
@@ -21,5 +23,5 @@ private:
     LGFX m_lgfx;
     LGFX_Sprite m_renderSprite{&m_lgfx};
 
-    SpriteManager m_spriteManager;
+    SpriteManager *m_spriteManager = nullptr;
 };

@@ -16,8 +16,6 @@ void Display::Init()
         SpriteConstants::Height * DisplayConstants::SpriteScale);
 
     Serial.println("Display initialized");
-
-    m_spriteManager.Init();
 }
 
 void Display::Update()
@@ -26,13 +24,17 @@ void Display::Update()
 
 void Display::Load()
 {
-    m_spriteManager.LoadSprites();
 }
 
 void Display::ShowSprite(Emotion emotion, size_t frame)
 {
-    const Sprite *sprite =
-        m_spriteManager.Get(emotion, frame);
+    if (m_spriteManager == nullptr)
+    {
+        return;
+    }
+
+    const Sprite* sprite =
+        m_spriteManager->Get(emotion, frame);
 
     if (sprite == nullptr)
     {
@@ -95,4 +97,9 @@ void Display::DrawBitmap(
             }
         }
     }
+}
+
+void Display::SetSpriteManager(SpriteManager *spriteManager)
+{
+    m_spriteManager = spriteManager;
 }
