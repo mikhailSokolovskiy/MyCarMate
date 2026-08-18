@@ -34,7 +34,7 @@ void App::Update()
         }
         else if (command == '4')
         {
-            SetEmotion(Emotion::Surprised);
+            SetEmotion(Emotion::Surprise);
         }
     }
 

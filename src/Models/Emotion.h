@@ -5,7 +5,10 @@ enum class Emotion
     Default,
     Happy,
     Angry,
+    Dizzy,
     Sleep,
     Blink,
-    Surprised
+    Surprise,
+    ShiftLeft,
+    ShiftRight
 };
