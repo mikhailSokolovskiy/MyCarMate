@@ -4,6 +4,8 @@
 
 void App::Setup()
 {
+    m_triggerService.Init();
+
     m_display.SetSpriteManager(&m_spriteManager);
     m_display.Init();
 }
@@ -16,26 +18,11 @@ void App::Load()
 
 void App::Update()
 {
-    if (Serial.available())
-    {
-        const char command = Serial.read();
+    Emotion triggeredEmotion;
 
-        if (command == '1')
-        {
-            SetEmotion(Emotion::Happy);
-        }
-        else if (command == '2')
-        {
-            SetEmotion(Emotion::Angry);
-        }
-        else if (command == '3')
-        {
-            SetEmotion(Emotion::Blink);
-        }
-        else if (command == '4')
-        {
-            SetEmotion(Emotion::Surprise);
-        }
+    if (m_triggerService.Update(triggeredEmotion))
+    {
+        SetEmotion(triggeredEmotion);
     }
 
     m_animation.Update();

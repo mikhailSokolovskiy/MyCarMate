@@ -24,7 +24,7 @@ public:
 
 private:
     void LoadDefault();
-    void LoadHappy();
+    void LoadEmotionSet(Emotion emotion, const uint8_t *const *frames, size_t count);
 
     std::vector<EmotionSprites> m_emotions;
 };

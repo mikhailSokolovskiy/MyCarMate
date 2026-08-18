@@ -1,6 +1,6 @@
 #include "SpriteManager.h"
 
-#include <Assets/Sprites/Happy/Happy.h>
+#include <Assets/Sprites/SpriteList.h>
 #include <Constants/SpriteConfig.h>
 #include <Assets/Sprites/Default/Default_0.h>
 
@@ -9,7 +9,15 @@ void SpriteManager::LoadSprites()
     m_emotions.clear();
 
     LoadDefault();
-    LoadHappy();
+
+    LoadEmotionSet(Emotion::Happy, Sprites::Happy, Sprites::HappyCount);
+    LoadEmotionSet(Emotion::Angry, Sprites::Angry, Sprites::AngryCount);
+    LoadEmotionSet(Emotion::Dizzy, Sprites::Dizzy, Sprites::DizzyCount);
+    LoadEmotionSet(Emotion::Blink, Sprites::Blink, Sprites::BlinkCount);
+    LoadEmotionSet(Emotion::Sleep, Sprites::Sleep, Sprites::SleepCount);
+    LoadEmotionSet(Emotion::Surprise, Sprites::Surprise, Sprites::SurpriseCount);
+    LoadEmotionSet(Emotion::ShiftLeft, Sprites::ShiftLeft, Sprites::ShiftLeftCount);
+    LoadEmotionSet(Emotion::ShiftRight, Sprites::ShiftRight, Sprites::ShiftRightCount);
 }
 
 void SpriteManager::LoadDefault()
@@ -26,21 +34,20 @@ void SpriteManager::LoadDefault()
     m_emotions.push_back(defaultEmotion);
 }
 
-void SpriteManager::LoadHappy()
+void SpriteManager::LoadEmotionSet(Emotion emotion, const uint8_t *const *frames, size_t count)
 {
-    EmotionSprites happy;
+    EmotionSprites emotionSprites;
+    emotionSprites.emotion = emotion;
 
-    happy.emotion = Emotion::Happy;
-
-    for (size_t i = 0; i < HappyFrameCount; i++)
+    for (size_t i = 0; i < count; i++)
     {
-        happy.sprites.emplace_back(
+        emotionSprites.sprites.emplace_back(
             SpriteConstants::Width,
             SpriteConstants::Height,
-            HappyFrames[i]);
+            frames[i]);
     }
 
-    m_emotions.push_back(happy);
+    m_emotions.push_back(emotionSprites);
 }
 
 const Sprite *SpriteManager::Get(

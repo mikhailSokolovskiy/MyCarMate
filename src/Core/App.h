@@ -3,6 +3,7 @@
 #include "../Display/Display.h"
 #include "../Animation/Animation.h"
 #include "../Display/SpriteManager.h"
+#include <Trigger/TriggerService.h>
 
 class App
 {
@@ -16,6 +17,7 @@ private:
     SpriteManager m_spriteManager;
     Display m_display;
     Animation m_animation;
+    TriggerService m_triggerService;
 
     Emotion m_currentEmotion = Emotion::Default;
 };
